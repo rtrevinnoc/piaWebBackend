@@ -9,14 +9,15 @@ namespace Monitores
         {
         }
 
-        public DbSet<Branch> Branches { get; set; }
-        public DbSet<Company> Companies { get; set; }
+        public DbSet<User> Users { get; set; }
+        // public DbSet<Branch> Branches { get; set; }
+        // public DbSet<Company> Companies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Branch>()
-                .HasOne(c => c.Company)
-                .WithMany(c => c.Branches);
+            // modelBuilder.Entity<Branch>()
+            //     .HasOne(c => c.Company)
+            //     .WithMany(c => c.Branches);
         }
 
     }

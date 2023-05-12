@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json.Serialization;
+using WebApi.Mapping;
 
 namespace Monitores
 {
@@ -62,6 +63,8 @@ namespace Monitores
                 }
             });
 
+            services.AddAutoMapper(expression => expression.AddProfile(new MappingProfile()));
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -83,6 +86,8 @@ namespace Monitores
             });
 
             services.AddAuthorization();
+
+            services.AddDataProtection();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,4 @@
-namespace Monitores.Entidades
+namespace Monitores.Recursos
 {
     public class JWTResponse
     {
