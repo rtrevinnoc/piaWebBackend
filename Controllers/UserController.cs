@@ -46,7 +46,8 @@ namespace Monitores.Controllers
                 claims: new List<Claim>() {
                             new Claim("id", Guid.NewGuid().ToString()),
                             new Claim(JwtRegisteredClaimNames.Name, user.UserName),
-                            new Claim(JwtRegisteredClaimNames.Email, "rtrevinnoc@hotmail.com")
+                            new Claim(JwtRegisteredClaimNames.Email, user.EMail),
+                            new Claim(ClaimTypes.Role, user.Role.ToString())
                     },
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: signinCredentials
@@ -94,6 +95,8 @@ namespace Monitores.Controllers
             var existingUser = db.Users.FirstOrDefault(x => x.UserName == credentials.UserName);
 
             if (protector.Unprotect(existingUser.Password) == credentials.Password) {
+                credentials.Role = existingUser.Role;
+                credentials.EMail = existingUser.EMail;
                 return Ok(CreateToken(credentials));
             }
 
