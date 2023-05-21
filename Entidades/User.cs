@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Monitores.Entidades {
+namespace Tienda.Entidades {
     public class User
     {
         [Key]

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Monitores.Entidades;
+using Tienda.Entidades;
 
-namespace Monitores
+namespace Tienda
 {
     public class ApplicationDbContext : DbContext
     {
@@ -10,14 +10,13 @@ namespace Monitores
         }
 
         public DbSet<User> Users { get; set; }
-        // public DbSet<Branch> Branches { get; set; }
-        // public DbSet<Company> Companies { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<Branch>()
-            //     .HasOne(c => c.Company)
-            //     .WithMany(c => c.Branches);
+            modelBuilder.Entity<Product>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
         }
 
     }

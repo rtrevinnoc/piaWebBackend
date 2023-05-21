@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using WebApi.Mapping;
 
-namespace Monitores
+namespace Tienda
 {
     public class Startup
     {
@@ -55,7 +55,7 @@ namespace Monitores
                 });
             });
 
-            services.AddDbContext<Monitores.ApplicationDbContext>(options => {
+            services.AddDbContext<Tienda.ApplicationDbContext>(options => {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
                     options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
                 } else {

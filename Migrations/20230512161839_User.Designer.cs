@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Monitores;
+using Tienda;
 
 #nullable disable
 
-namespace Monitores.Migrations
+namespace Tienda.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230512161839_User")]

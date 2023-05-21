@@ -11,8 +11,8 @@ using Tienda.Recursos;
 namespace Tienda.Controllers
 {
     [ApiController]
-    [Route("api/users"), Authorize]
-    public class UsersController : ControllerBase
+    [Route("api/products"), Authorize]
+    public class ProductsController : ControllerBase
     {
         private ApplicationDbContext db;
 
@@ -20,7 +20,7 @@ namespace Tienda.Controllers
 
         private readonly IMapper _mapper;
 
-        public UsersController(ApplicationDbContext dbContext, IConfiguration configuration, IMapper mapper)
+        public ProductsController(ApplicationDbContext dbContext, IConfiguration configuration, IMapper mapper)
         {
             db = dbContext;
             Configuration = configuration;
@@ -29,7 +29,6 @@ namespace Tienda.Controllers
         
         [HttpGet]
         [Authorize]
-        // public ActionResult<List<User>> Get() => Ok(db.Users.ToList());
-        public ActionResult<List<UserResource>> Get() => Ok(_mapper.Map<List<User>, List<UserResource>>(db.Users.ToList()));
+        public ActionResult<List<ProductResourceIn>> Get() => Ok(_mapper.Map<List<Product>, List<ProductResourceOut>>(db.Products.ToList()));
     }
 }

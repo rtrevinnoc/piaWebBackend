@@ -5,10 +5,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Monitores.Entidades;
-using Monitores.Recursos;
+using Tienda.Entidades;
+using Tienda.Recursos;
 
-namespace Monitores.Controllers
+namespace Tienda.Controllers
 {
     [ApiController]
     [Route("api/user")]
@@ -85,7 +85,7 @@ namespace Monitores.Controllers
 
 
         [HttpGet]
-        public ActionResult SignIn([FromQuery] UserSign credentials)
+        public ActionResult SignIn([FromQuery] UserLogIn credentials)
         {
             if (credentials is null)
             {
@@ -95,9 +95,10 @@ namespace Monitores.Controllers
             var existingUser = db.Users.FirstOrDefault(x => x.UserName == credentials.UserName);
 
             if (protector.Unprotect(existingUser.Password) == credentials.Password) {
-                credentials.Role = existingUser.Role;
-                credentials.EMail = existingUser.EMail;
-                return Ok(CreateToken(credentials));
+                var userSign = _mapper.Map<UserLogIn, UserSign>(credentials);
+                userSign.Role = existingUser.Role;
+                userSign.EMail = existingUser.EMail;
+                return Ok(CreateToken(userSign));
             }
 
             return Unauthorized();

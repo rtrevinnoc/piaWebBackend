@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Monitores.Migrations
+namespace Tienda.Migrations
 {
     /// <inheritdoc />
     public partial class User : Migration
