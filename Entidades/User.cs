@@ -9,6 +9,10 @@ namespace Tienda.Entidades {
         public string Password { get; set; }
         public string EMail { get; set; }
         public Role Role { get; set; }
+        public ICollection<BoughtProduct> Cart { get; set; }
+        public User() {
+            Cart = new List<BoughtProduct>();
+        }
     }
 
     public enum Role {

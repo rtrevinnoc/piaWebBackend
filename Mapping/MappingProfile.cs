@@ -22,6 +22,9 @@ namespace WebApi.Mapping
                 .ForMember(x => x.Id, opt => opt.MapFrom(x => Guid.NewGuid()))
                 .ForMember(x => x.Image, opt => opt.MapFrom(x => ConvertFileToBytes(x.Image)));
 
+            CreateMap<ProductResourceUpdate, ProductUpdate>()
+                .ForMember(x => x.Image, opt => opt.MapFrom(x => ConvertFileToBytes(x.Image)));
+
             CreateMap<Product, ProductResourceOut>()
                 .ForMember(x => x.ImageUrl, opt => opt.MapFrom(x => string.Format("https://localhost:7142/api/product/image?name={0}", x.Name)));
 

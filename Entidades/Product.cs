@@ -10,5 +10,6 @@ namespace Tienda.Entidades {
         public int Units { get; set; }
         public string Description { get; set; }
         public byte[] Image { get; set; }
+        public string Category { get; set; }
     }
 }
