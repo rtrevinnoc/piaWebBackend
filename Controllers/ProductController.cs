@@ -41,7 +41,7 @@ namespace Tienda.Controllers
         public ActionResult GetProduct([FromQuery] Guid productId)
         {
             Product product = db.Products.Find(productId);
-            return Ok(product);
+            return Ok(_mapper.Map<Product, ProductResourceOut>(product));
         }
         
         [HttpPost]
@@ -54,7 +54,7 @@ namespace Tienda.Controllers
                 var product = _mapper.Map<ProductResourceIn, Product>(newProduct);
                 db.Products.Add(product);
                 db.SaveChanges();
-                return Ok(product);
+                return Ok(_mapper.Map<Product, ProductResourceOut>(product));
             }
 
             return Unauthorized();
@@ -95,7 +95,7 @@ namespace Tienda.Controllers
                 }
 
                 db.SaveChanges();
-                return Ok(existingProduct);
+                return Ok(_mapper.Map<Product, ProductResourceOut>(existingProduct));
             }
 
             return Unauthorized();
@@ -121,14 +121,7 @@ namespace Tienda.Controllers
         public ActionResult RetrieveImage([FromQuery] string name)
         {
             Product product = db.Products.FirstOrDefault(x => x.Name == name);
-
-            Image image;
-            using (MemoryStream ms = new MemoryStream(product.Image))
-            {
-                image = Image.FromStream(ms);
-            }
-
-            return Ok(image);
+            return File(product.Image, "image/jpeg");
         }
 
         [HttpGet("results")]
@@ -150,7 +143,7 @@ namespace Tienda.Controllers
 
         [HttpGet("recommendation")]
         [Authorize]
-        public ActionResult RecommendProduct([FromQuery] SearchResource searchResource)
+        public ActionResult RecommendProduct()
         {
             var userId = User.FindFirst(c=>c.Type==ClaimTypes.NameIdentifier)?.Value;
             var userRole = User.FindFirst(c=>c.Type==ClaimTypes.Role)?.Value;
@@ -164,7 +157,11 @@ namespace Tienda.Controllers
             }
             var mostCommonCategory = categories.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).Where(x => x != null).First();
 
-            return Ok(mostCommonCategory);
+            var products = db.Products.Where(x => x.Category == mostCommonCategory).ToList();
+            Random rnd = new Random();
+            Product recommendation = products[rnd.Next(products.Count)];
+
+            return Ok(_mapper.Map<Product, ProductResourceOut>(recommendation));
         }
     }
 }

@@ -27,12 +27,6 @@ namespace WebApi.Mapping
 
             CreateMap<Product, ProductResourceOut>()
                 .ForMember(x => x.ImageUrl, opt => opt.MapFrom(x => string.Format("https://localhost:7142/api/product/image?name={0}", x.Name)));
-
-            // CreateMap<Auth0User, Auth0UserResource>()
-            //     .ForMember(x => x.DefaultPicture, opt => opt.MapFrom(x => x.Picture))
-            //     .ForMember(x => x.Picture, opt => opt.MapFrom
-            //     (src => string.IsNullOrEmpty(src.UserMetadata.ProfilePicture)
-            //         ? src.Picture : src.UserMetadata.ProfilePicture));
         }
 
         private byte[] ConvertFileToBytes(IFormFile file) {

@@ -30,9 +30,5 @@ namespace Tienda.Controllers
         [HttpGet]
         [Authorize]
         public ActionResult Get() => Ok(_mapper.Map<List<Product>, List<ProductResourceOut>>(db.Products.ToList()));
-
-        [HttpGet("bought")]
-        [Authorize]
-        public ActionResult GetBought() => Ok(db.BoughtProducts.ToList());
     }
 }

@@ -29,7 +29,6 @@ namespace Tienda.Controllers
         
         [HttpGet]
         [Authorize]
-        public ActionResult<List<User>> Get() => Ok(db.Users.ToList());
-        // public ActionResult<List<UserResource>> Get() => Ok(_mapper.Map<List<User>, List<UserResource>>(db.Users.ToList()));
+        public ActionResult Get() => Ok(_mapper.Map<List<User>, List<UserResource>>(db.Users.ToList()));
     }
 }
